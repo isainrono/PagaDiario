@@ -3,9 +3,12 @@ version: "3.9"
 services:
   backend:
     build:
-      context: ./apps/backend
+      context: .
+      dockerfile: apps/backend/Dockerfile
     container_name: pagadiario_backend
     restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
     environment:
       DATABASE_URL: postgresql://pagadiario:${DB_PASSWORD}@postgres:5432/pagadiario
       REDIS_URL: redis://redis:6379
@@ -47,21 +50,6 @@ services:
     networks:
       - internal
 
-  nginx:
-    image: nginx:alpine
-    container_name: pagadiario_nginx
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /var/www/certbot:/var/www/certbot:ro
-    depends_on:
-      - backend
-    networks:
-      - internal
 
 volumes:
   postgres_data:
