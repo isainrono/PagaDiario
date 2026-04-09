@@ -5,13 +5,35 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "pagadiario",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "plugins": [
       [
         "expo-router",
-        { "root": "app" }
+        {
+          "root": "app"
+        }
       ]
     ],
-    "sdkVersion": "54.0.0"
+    "sdkVersion": "54.0.0",
+    "extra": {
+      "router": {
+        "root": "app"
+      },
+      "eas": {
+        "projectId": "32b4811d-132b-458c-be56-a0427e07eb94"
+      }
+    },
+    "android": {
+      "package": "com.rodisain.pagadiario"
+    },
+    "ios": {
+      "bundleIdentifier": "com.rodisain.pagadiario",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    }
   }
 }
