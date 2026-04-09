@@ -1095,35 +1095,37 @@ export default function TableroScreen() {
               <>
                 <Text style={styles.modalTitulo}>
                   {modal.tipo === 'CARTA_SUERTE'
-                    ? 'Carta de Suerte'
-                    : 'Caja Comunidad'}
+                    ? '🍀 Carta de Suerte'
+                    : '🏦 Caja Comunidad'}
                 </Text>
-                {textoCarta ? (
-                  <Text style={styles.modalTexto}>{textoCarta}</Text>
-                ) : (
-                  <Text style={styles.modalTexto}>
-                    Robá una carta del mazo.
-                  </Text>
-                )}
-                <TouchableOpacity
-                  style={[
-                    styles.modalBotonPrincipal,
-                    cartaUsada && styles.modalBotonDeshabilitado,
-                  ]}
-                  onPress={handleRobarCarta}
-                  disabled={cartaUsada}
-                >
-                  <Text style={styles.modalBotonTexto}>
-                    {cartaUsada ? 'Carta robada' : 'Robar carta'}
-                  </Text>
-                </TouchableOpacity>
-                {cartaUsada && textoCarta && (
+                <Text style={styles.modalTexto}>
+                  {textoCarta
+                    ? textoCarta
+                    : 'Tocá el botón para robar una carta del mazo.'}
+                </Text>
+                <View style={styles.modalBotones}>
                   <TouchableOpacity
-                    style={styles.modalBotonSecundario}
-                    onPress={cerrarModal}
+                    style={[
+                      styles.modalBotonPrincipal,
+                      cartaUsada && styles.modalBotonDeshabilitado,
+                    ]}
+                    onPress={handleRobarCarta}
+                    disabled={cartaUsada}
                   >
-                    <Text style={styles.modalBotonTexto}>Continuar</Text>
+                    <Text style={styles.modalBotonTexto}>
+                      {cartaUsada ? '✓ Carta robada' : 'Robar carta'}
+                    </Text>
                   </TouchableOpacity>
+                </View>
+                {cartaUsada && textoCarta && (
+                  <View style={styles.modalBotones}>
+                    <TouchableOpacity
+                      style={styles.modalBotonSecundario}
+                      onPress={cerrarModal}
+                    >
+                      <Text style={styles.modalBotonTexto}>Continuar</Text>
+                    </TouchableOpacity>
+                  </View>
                 )}
               </>
             )}
