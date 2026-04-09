@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Partida {
+  id            String         @id @default(cuid())
+  codigo        String         @unique
+  estado        EstadoPartida  @default(ESPERANDO)
+  modoMonetario ModoMonetario  @default(DIGITAL)
+  turnoActual   Int            @default(0)
+  creadaEn      DateTime       @default(now())
+  actualizadaEn DateTime       @updatedAt
+
+  jugadores     Jugador[]
+  propiedades   Propiedad[]
+  transacciones Transaccion[]
+  subastas      Subasta[]
+}
+
+model Jugador {
+  id             String        @id @default(cuid())
+  partidaId      String
+  partida        Partida       @relation(fields: [partidaId], references: [id])
+  nombre         String
+  ficha          Ficha
+  posicion       Int           @default(0)
+  saldo          Int           @default(1500)
+  enCarcel       Boolean       @default(false)
+  turnosEnCarcel Int           @default(0)
+  cartaSalida    Boolean       @default(false)
+  eliminado      Boolean       @default(false)
+  ordenTurno     Int
+  creadoEn       DateTime      @default(now())
+
+  propiedades    Propiedad[]
+  transacciones  Transaccion[]
+  pujas          Puja[]
+}
+
+model Propiedad {
+  id            String   @id @default(cuid())
+  partidaId     String
+  partida       Partida  @relation(fields: [partidaId], references: [id])
+  propietarioId String?
+  propietario   Jugador? @relation(fields: [propietarioId], references: [id])
+  casilla       Int
+  casas         Int      @default(0)
+  hotel         Boolean  @default(false)
+  hipotecada    Boolean  @default(false)
+}
+
+model Transaccion {
+  id        String          @id @default(cuid())
+  partidaId String
+  partida   Partida         @relation(fields: [partidaId], references: [id])
+  jugadorId String
+  jugador   Jugador         @relation(fields: [jugadorId], references: [id])
+  tipo      TipoTransaccion
+  monto     Int
+  concepto  String
+  creadaEn  DateTime        @default(now())
+}
+
+model Subasta {
+  id        String   @id @default(cuid())
+  partidaId String
+  partida   Partida  @relation(fields: [partidaId], references: [id])
+  casilla   Int
+  estado    String   @default("ACTIVA")
+  expiraEn  DateTime
+  ganadorId String?
+  montoPuja Int?
+  creadaEn  DateTime @default(now())
+
+  pujas     Puja[]
+}
+
+model Puja {
+  id        String   @id @default(cuid())
+  subastaId String
+  subasta   Subasta  @relation(fields: [subastaId], references: [id])
+  jugadorId String
+  jugador   Jugador  @relation(fields: [jugadorId], references: [id])
+  monto     Int
+  creadaEn  DateTime @default(now())
+}
+
+enum EstadoPartida {
+  ESPERANDO
+  EN_CURSO
+  FINALIZADA
+}
+
+enum ModoMonetario {
+  DIGITAL
+  FISICO
+  HIBRIDO
+}
+
+enum Ficha {
+  PERRO
+  SOMBRERO
+  COCHE
+  BARCO
+  DEDAL
+  CARRETILLA
+  CABALLO
+  PLANCHA
+}
+
+enum TipoTransaccion {
+  SALARIO
+  ALQUILER
+  COMPRA
+  IMPUESTO
+  CARTA
+  HIPOTECA
+  CONSTRUCCION
+  SUBASTA
+  NEGOCIACION
+  BANCARROTA
+}

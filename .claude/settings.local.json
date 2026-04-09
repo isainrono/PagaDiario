@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/isainrodrigueznorena/Isain/PagaDiario/apps/mobile/app/sala/[codigo]/)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(npx tsc:*)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(curl:*)",
+      "Bash(rm -rf node_modules)",
+      "Bash(npm install:*)",
+      "Bash(npx expo:*)",
+      "Bash(node -e \"console.log\\(require\\(''/Users/isainrodrigueznorena/Isain/PagaDiario/node_modules/@expo/metro-config/package.json''\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\(''/Users/isainrodrigueznorena/Isain/PagaDiario/apps/mobile/node_modules/@expo/metro-config/package.json''\\).version\\)\")",
+      "Bash(node -e \"console.log\\(''expo:'', require\\(''./node_modules/expo/package.json''\\).version\\)\")",
+      "Bash(node -e \"console.log\\(''react-native:'', require\\(''./node_modules/react-native/package.json''\\).version\\)\")",
+      "Bash(node -e \"console.log\\(''react:'', require\\(''./node_modules/react/package.json''\\).version\\)\")",
+      "Bash(node:*)",
+      "Bash(cat /Users/isainrodrigueznorena/Isain/PagaDiario/apps/mobile/app/sala/[codigo]/espera.tsx)",
+      "Bash(docker exec:*)",
+      "Bash(find /Users/isainrodrigueznorena/Isain/PagaDiario/apps -name \"*.ts\" -exec grep -l \"MOVER_A\\\\|MOVER_RELATIVO\\\\|Avanza.*railroad\" {} \\\\;)",
+      "Bash(grep -E \"^jest$|ts-jest\")",
+      "Bash(grep -E \"^jest$|^@jest|ts-jest|@types/jest\")",
+      "Bash(npm test:*)",
+      "Bash(node_modules/.bin/tsc --project apps/backend/tsconfig.json --noEmit)"
+    ]
+  }
+}

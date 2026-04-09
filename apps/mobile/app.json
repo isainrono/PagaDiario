@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "PagaDiario",
+    "slug": "pagadiario",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "pagadiario",
+    "platforms": ["ios", "android"],
+    "plugins": [
+      [
+        "expo-router",
+        { "root": "app" }
+      ]
+    ],
+    "sdkVersion": "54.0.0"
+  }
+}
